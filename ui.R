@@ -12,20 +12,13 @@ ui <- fluidPage(
     # Sidebar panel for inputs ----
     sidebarPanel(
       
-      # Input: Slider for the number of bins ----
-      sliderInput(inputId = "bins",
-                  label = "Number of bins:",
-                  min = 1,
-                  max = 100,
-                  value = 30)
+
       
     ),
     
     # Main panel for displaying outputs ----
     mainPanel(
-      
-      # Output: Histogram ----
-      plotOutput(outputId = "distPlot")
+      textOutput("trip_count")
       
     )
   )
