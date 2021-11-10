@@ -1,25 +1,15 @@
 library(shiny)
+library(shinydashboard)
 
 # Define UI for app that draws a histogram ----
-ui <- fluidPage(
+ui <- dashboardPage(
   
   # App title ----
-  titlePanel("Hello Shiny!"),
+  dashboardHeader(title="Simulated Taxi Rides"),
+  dashboardSidebar(),
   
-  # Sidebar layout with input and output definitions ----
-  sidebarLayout(
-    
-    # Sidebar panel for inputs ----
-    sidebarPanel(
-      
 
+  dashboardBody(fluidRow(valueBoxOutput("trip_count")))
       
-    ),
-    
-    # Main panel for displaying outputs ----
-    mainPanel(
-      textOutput("trip_count")
-      
-    )
-  )
+  
 )
