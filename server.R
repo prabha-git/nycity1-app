@@ -1,23 +1,32 @@
-# Define server logic required to draw a histogram ----
+library(bigrquery)
+library(DBI)
+
+projectid = 'nycity1'
+datasetid='taxi'
+
+sql="select count(*) from nycity1.taxi.ride"
+
 server <- function(input, output) {
+  autoInvalidate <- reactiveTimer(5000)
   
-  # Histogram of the Old Faithful Geyser Data ----
-  # with requested number of bins
-  # This expression that generates a histogram is wrapped in a call
-  # to renderPlot to indicate that:
-  #
-  # 1. It is "reactive" and therefore should be automatically
-  #    re-executed when inputs (input$bins) change
-  # 2. Its output type is a plot
-  output$distPlot <- renderPlot({
-    
-    x    <- faithful$waiting
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-    hist(x, breaks = bins, col = "#75AADB", border = "white",
-         xlab = "Waiting time to next eruption (in mins)",
-         main = "Histogram of waiting times")
-    
+bq_conn <-  dbConnect(
+    bigquery(),
+    project = projectid,
+    dataset = datasetid,
+    use_legacy_sql = FALSE
+  )
+
+bq_auth(path = "nycity1-db939ecf3844.json")
+sql="select count(*) from nycity1.taxi.ride"
+data = reactive({
+  autoInvalidate()
+  dbGetQuery(bq_conn, sql, n = 10)
   })
+
+output$trip_count = renderText({
+  data()$f0_[1]
+  
+  })
+
   
 }
