@@ -9,7 +9,7 @@ datasetid = 'taxi'
 sql = "select count(*) from nycity1.taxi.ride"
 
 server <- function(input, output) {
-  autoInvalidate <- reactiveTimer(20000)
+  autoInvalidate <- reactiveTimer(60000)
   
   bq_conn <-  dbConnect(
     bigquery(),
@@ -47,7 +47,11 @@ group by 1"
 
     
   output$last_24_hour_trend = renderPlot({
-    ggplot(trend_data(),aes(x=ts,y=pkup_cnt))+geom_line()
+    ggplot(trend_data(),aes(x=ts,y=pkup_cnt))+
+      geom_line()+
+      ylab("Ride Pickup Count")+
+      theme_light()+
+      theme(axis.title.x = element_blank())
   })
   
   }
