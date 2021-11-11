@@ -1,5 +1,7 @@
 library(bigrquery)
 library(DBI)
+library(tidyverse)
+library(shinydashboard)
 
 projectid = 'nycity1'
 datasetid='taxi'
@@ -23,8 +25,9 @@ data = reactive({
   dbGetQuery(bq_conn, sql, n = 10)
   })
 
-output$trip_count = renderText({
-  data()$f0_[1]
+output$trip_count = renderValueBox({
+   #valueBox(tags$p(prettyNum(data()$f0_[1]),subtitle = "Total trips",tags)
+  valueBox(tags$p(prettyNum(data()$f0_[1]),style="text-align:center"),subtitle=tags$p("Total Trips",style='text-align:center'))
   
   })
 
