@@ -9,7 +9,8 @@ ui <- dashboardPage(
   dashboardSidebar(),
   
 
-  dashboardBody(fluidRow(valueBoxOutput("trip_count")))
+  dashboardBody(fluidRow(valueBoxOutput("trip_count"),
+                         plotOutput("last_24_hour_trend")))
       
   
 )
