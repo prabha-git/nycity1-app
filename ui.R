@@ -6,6 +6,7 @@ ui <- dashboardPage(
   
   # App title ----
   dashboardHeader(title="Simulated Taxi Rides"),
+
   dashboardSidebar(collapsed=TRUE),
   
 
@@ -18,6 +19,6 @@ ui <- dashboardPage(
     
     fluidRow(valueBoxOutput("trip_count"),
                          plotOutput("last_24_hour_trend")))
-      
+
   
 )
