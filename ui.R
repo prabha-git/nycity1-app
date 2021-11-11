@@ -6,10 +6,19 @@ ui <- dashboardPage(
   
   # App title ----
   dashboardHeader(title="Simulated Taxi Rides"),
-  dashboardSidebar(),
+
+  dashboardSidebar(collapsed=TRUE),
   
 
-  dashboardBody(fluidRow(valueBoxOutput("trip_count")))
-      
+  dashboardBody(
+    
+    tags$head(tags$style(HTML('
+                              .contant-wrapper{
+                              background-color:#000;
+                              }'))),
+    
+    fluidRow(valueBoxOutput("trip_count"),
+                         plotOutput("last_24_hour_trend")))
+
   
 )
